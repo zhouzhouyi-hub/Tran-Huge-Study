@@ -1,1 +1,1 @@
-
+# How mprotect affect CONFIG_READ_ONLY_THP_FOR_FS
