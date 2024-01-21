@@ -28,4 +28,5 @@ Then question arises, we see !inode_is_open_for_write(inode) on line 209 above, 
 
 ## references
 [1] https://maskray.me/blog/2023-12-17-exploring-the-section-layout-in-linker-output#transparent-huge-pages-for-mapped-files
+
 [2] https://github.com/zhouzhouyi-hub/Tran-Huge-Study/blob/main/README.md
