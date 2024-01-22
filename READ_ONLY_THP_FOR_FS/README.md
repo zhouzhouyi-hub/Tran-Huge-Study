@@ -26,6 +26,29 @@ developments, so do file_thp_enabled as follows):
 
 Then question arises, we see !inode_is_open_for_write(inode) on line 209 above, could a subsequent call to syscall mprotect argumented with PROT_WRITE defeat CONFIG_READ_ONLY_THP_FOR_FS and inode_is_open_for_write's functionality as a program goes on?
 
+The rest of the paper is organized as follows, section 1 "inode_is_open_for_write" introduce how function inode_is_open_for_write works and how the operating system affects the return value of this function.
+
+## inode_is_open_for_write
+function inode_is_open_for_write is defined in include/linux/fs.h
+```
+static inline bool inode_is_open_for_write(const struct inode *inode)
+{
+       return atomic_read(&inode->i_writecount) > 0;
+}
+```
+the field "i_writecount" of struct inode is used to judge wether inode is opened for write, as we can see in fs/open.c
+```
+873 static int do_dentry_open(struct file *f,
+874                           struct inode *inode,
+875                           int (*open)(struct inode *, struct file *))
+...
+892         if ((f->f_mode & (FMODE_READ | FMODE_WRITE)) == FMODE_READ) {
+893                 i_readcount_inc(inode);
+894         } else if (f->f_mode & FMODE_WRITE && !special_file(inode->i_mode)) {
+895                 error = get_write_access(inode);
+```
+and get_write_access is used to increase the i_writecount field of inode.
+
 ## references
 [1] https://maskray.me/blog/2023-12-17-exploring-the-section-layout-in-linker-output#transparent-huge-pages-for-mapped-files
 
