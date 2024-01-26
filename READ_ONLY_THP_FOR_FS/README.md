@@ -59,7 +59,33 @@ ptr = mmap (0, HPAGE_SIZE, PROT_READ, MAP_PRIVATE, fd, 0);
 ...
 mprotect(ptr, HPAGE_SIZE, PROT_READ|PROT_WRITE);
 ```
-What mprotect affect the memory region? To answer that question, I do a debug
+What mprotect affect the memory region? To answer that question, I do a debug.
+
+syscall mprotect does its job by change relevant vma->vm_flags 
+and vma->vm_page_prot
+
+__x64_sys_mprotect=>__se_sys_mprotect=>__do_sys_mprotect=>do_mprotect_pkey=>mprotect_fixup
+```
+vm_flags_reset(vma, newflags);
+```
+__x64_sys_mprotect=>__se_sys_mprotect=>__do_sys_mprotect=>do_mprotect_pkey=>mprotect_fixup=>vma_set_page_prot
+```
+90	void vma_set_page_prot(struct vm_area_struct *vma)
+91	{
+92		unsigned long vm_flags = vma->vm_flags;
+93		pgprot_t vm_page_prot;
+94	
+95		vm_page_prot = vm_pgprot_modify(vma->vm_page_prot, vm_flags);
+96		if (vma_wants_writenotify(vma, vm_page_prot)) {
+97			vm_flags &= ~VM_SHARED;
+98			vm_page_prot = vm_pgprot_modify(vm_page_prot, vm_flags);
+99		}
+100		/* remove_protection_ptes reads vma->vm_page_prot without mmap_lock */
+101		WRITE_ONCE(vma->vm_page_prot, vm_page_prot);
+102	}
+```
+and page table's protection are also changed:
+__x64_sys_mprotect=>__se_sys_mprotect=>__do_sys_mprotect=>do_mprotect_pkey=>mprotect_fixup=>change_protection=>change_protection_range=>...=>change_pte_range
 
 ## references
 [1] https://maskray.me/blog/2023-12-17-exploring-the-section-layout-in-linker-output#transparent-huge-pages-for-mapped-files
