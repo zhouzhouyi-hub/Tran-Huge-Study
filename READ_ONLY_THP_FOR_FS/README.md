@@ -49,6 +49,18 @@ the field "i_writecount" of struct inode is used to judge wether inode is opened
 ```
 and get_write_access is used to increase the i_writecount field of inode.
 
+## mprotect
+In example program [mprotect.cc](https://github.com/zhouzhouyi-hub/Tran-Huge-Study/blob/main/READ_ONLY_THP_FOR_FS/mprotect.cc),
+mprotect syscall is invoked to make the memory region writable after a file is opened and mmaped for read:
+```
+fd = open("carlclone.tar.xz", O_RDONLY);
+...
+ptr = mmap (0, HPAGE_SIZE, PROT_READ, MAP_PRIVATE, fd, 0);
+...
+mprotect(ptr, HPAGE_SIZE, PROT_READ|PROT_WRITE);
+```
+What mprotect affect the memory region? To answer that question, I do a debug
+
 ## references
 [1] https://maskray.me/blog/2023-12-17-exploring-the-section-layout-in-linker-output#transparent-huge-pages-for-mapped-files
 
