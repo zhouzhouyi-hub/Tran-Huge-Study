@@ -86,6 +86,19 @@ __x64_sys_mprotect=>__se_sys_mprotect=>__do_sys_mprotect=>do_mprotect_pkey=>mpro
 ```
 and page table's protection are also changed:
 __x64_sys_mprotect=>__se_sys_mprotect=>__do_sys_mprotect=>do_mprotect_pkey=>mprotect_fixup=>change_protection=>change_protection_range=>...=>change_pte_range
+Will above process of mprotect change vma's vm_file's inode's write count? The answer is "NO"!
+```
+819			error = mprotect_fixup(&vmi, &tlb, vma, &prev, nstart, tmp, newflags);
+820			if (error)
+821				break;
+822	
+823			tmp = vma_iter_end(&vmi);
+(gdb) p  vma->vm_file->f_inode->i_writecount
+$24 = {counter = 0}
+```
+
+## Conclusion
+mprotect will not affect file_thp_enabled which is called from do_madvise.
 
 ## references
 [1] https://maskray.me/blog/2023-12-17-exploring-the-section-layout-in-linker-output#transparent-huge-pages-for-mapped-files
