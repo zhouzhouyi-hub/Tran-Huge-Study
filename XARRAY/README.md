@@ -4,9 +4,9 @@ The XArray is an abstract data type which behaves like a very large array of poi
 
 Radix tree was previously  used in page cache for searching page caches. However, after version 4.20 of the Linux kernel, it has been replaced by the XArray structure.
 
-## structure of XArray 
+## Structure of XArray 
 
-
+![Structure of XAarray](Overview.png)
 
 ## Conclusion
 
