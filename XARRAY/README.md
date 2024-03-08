@@ -17,6 +17,8 @@ In figure above, XA_CHUNK_SHIFT is defined to be 3, and XA_CHUNK_SIZE is defined
 
 ## Example of xas_load
 ![example xas_load](traverse.png)
+
+
 Above figure gives a example of XArray tree traverse:
 
 The head node of the tree has shift 9, so when we try to load index 64th element from the tree,
