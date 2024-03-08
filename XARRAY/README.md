@@ -31,11 +31,10 @@ we compute the offset first:
 207	
 208		xas->xa_node = node;
 ```
-The offset at the head node of our current search is computed as 0, so we got the pointer to next node we travel from slot 0
-and
-the offset at the second level node (shift == 6) is computed as 1, so we got the pointer to next node we travel from slot 1
-and the offset at the third level node (shift == 3) is computed as 0, so we got the pointer to next node we travel from slot 1 and
-the offset at the leaf node (shift == 0) is computed 0, so we got the entry from slot 0.
+* The offset at the head node of our current search is computed as 0, so we got the pointer to next node we travel from slot 0
+* The offset at the second level node (shift == 6) is computed as 1, so we got the pointer to next node we travel from slot 1
+* The offset at the third level node (shift == 3) is computed as 0, so we got the pointer to next node we travel from slot 1 and
+* The offset at the leaf node (shift == 0) is computed 0, so we got the entry from slot 0.
 
 ## Conclusion
 
