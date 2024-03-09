@@ -6,7 +6,7 @@ Radix tree was previously  used in page cache for searching page caches. However
 
 ## Structure of XArray 
 
-![Structure of XAarray](Overview.png)
+![Structure of XAarray](Overview.svg)
 
 In include/linux/xarray.h there are macro definitions about node of XArray:
 ```
