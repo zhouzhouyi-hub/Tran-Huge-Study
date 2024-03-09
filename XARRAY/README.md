@@ -16,7 +16,7 @@ In include/linux/xarray.h there are macro definitions about node of XArray:
 In figure above, XA_CHUNK_SHIFT is defined to be 3, and XA_CHUNK_SIZE is defined to be 1<<3 = 8, and XA_CHUNK_MASK is defined to be 8 - 1 = 7. So there are 8 slots per XArray node.
 
 ## Example of xas_load
-![example xas_load](traverse.png)
+![example xas_load](traverse.svg)
 
 
 Above figure gives a example of XArray tree traverse:
