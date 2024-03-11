@@ -36,8 +36,13 @@ we compute the offset first:
 * The offset at the third level node (shift == 3) is computed as 0, so we got the pointer to next node we travel from slot 1 and
 * The offset at the leaf node (shift == 0) is computed 0, so we got the entry from slot 0.
 
+## Multi-order Xarray
+Much like her ancestor radix-tree in Linux kernel [2], Xarray has multi-order technology to
+insert an entry that covers multiple indices and have operations on indices in that range.
+
 ## Conclusion
 
 
 ## references
 [1] https://www.kernel.org/doc/html/latest/core-api/xarray.html
+[2] https://lwn.net/Articles/688130/
