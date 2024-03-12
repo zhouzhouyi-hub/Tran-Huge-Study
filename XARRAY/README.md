@@ -40,6 +40,16 @@ we compute the offset first:
 Much like her ancestor radix-tree in Linux kernel [2], Xarray has multi-order technology to
 insert an entry that covers multiple indices and have operations on indices in that range.
 
+We will visit the structure of Multi-order Xarray from easiest to hardest cases in this section
+
+### Index == 0 and order is multiple of XA_CHUNK_SHIFT
+![multiorder 1](multi-order-1.svg)
+
+In figure above, we store entry 1 with order 12 and index 10 to Xarray, so:
+* A node with shift == 12 is allocated and is assigned as header
+* Value 1 is stored to slot 1 of above node.
+
+
 ## Conclusion
 
 
