@@ -4,7 +4,7 @@ The XArray is an abstract data type which behaves like a very large array of poi
 
 Radix tree was previously  used in page cache for searching page caches. However, after version 4.20 of the Linux kernel, it has been replaced by the XArray structure.
 
-## Structure of XArray 
+## 1. Structure of XArray 
 
 ![Structure of XAarray](Overview.svg)
 
@@ -15,7 +15,7 @@ In include/linux/xarray.h there are macro definitions about node of XArray:
 ```
 In figure above, XA_CHUNK_SHIFT is defined to be 3, and XA_CHUNK_SIZE is defined to be 1<<3 = 8, and XA_CHUNK_MASK is defined to be 8 - 1 = 7. So there are 8 slots per XArray node.
 
-## Example of xas_load
+## 2. Example of xas_load
 ![example xas_load](traverse.svg)
 
 
@@ -36,13 +36,13 @@ we compute the offset first:
 * The offset at the third level node (shift == 3) is computed as 0, so we got the pointer to next node we travel from slot 1 and
 * The offset at the leaf node (shift == 0) is computed 0, so we got the entry from slot 0.
 
-## Multi-order Xarray
+## 3. Multi-order Xarray
 Much like her ancestor radix-tree in Linux kernel [2], Xarray has multi-order technology to
 insert an entry that covers multiple indices and have operations on indices in that range.
 
 We will visit the structure of Multi-order Xarray from easiest to hardest cases in this section
 
-### Index == 0 and order is multiple of XA_CHUNK_SHIFT
+### 3.1 Index == 0 and order is multiple of XA_CHUNK_SHIFT
 ![multiorder 1](multi-order-1.svg)
 
 In figure above, we store entry 1 with order 12 and index 10 to Xarray, so:
@@ -50,10 +50,10 @@ In figure above, we store entry 1 with order 12 and index 10 to Xarray, so:
 * Value 1 is stored to slot 1 of above node.
 
 
-## Conclusion
+## 4. Conclusion
 
 
-## references
+## 5. references
 [1] https://www.kernel.org/doc/html/latest/core-api/xarray.html
 
 [2] https://lwn.net/Articles/688130/
