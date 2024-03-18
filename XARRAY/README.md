@@ -49,6 +49,8 @@ In figure above, we store entry 1 with order 12 and index 10 to Xarray, so:
 * A node with shift == 12 is allocated and is assigned as header
 * Value 1 is stored to slot 1 of above node.
 
+### 3.2 Index=4004 and order=7
+![multiorder 1](multi-order-2.svg)
 
 ## 4. Conclusion
 
