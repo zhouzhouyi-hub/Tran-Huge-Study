@@ -50,13 +50,13 @@ In figure above, we store entry 1 with order 12 and index 10 to Xarray, so:
 * Value 1 is stored to slot 1 of above node.
 
 ### 3.2 Index=4004 and order=7
-![multiorder 1\label{multiorder1}](multi-order-2.svg)
+![multiorder 1\label{multiorder1}](multi-order-2.svg) {#fig:multiorder1}
 
 As mentioned in [2], "For orders greater than 1, there can 
 simply be multiple sibling entries that all point back to 
 the actual radix-tree entry".
 
-Note in the figure \ref{mylabel}, 7th entry of node with shift-6 is
+Note in the figure @fig:{multiorder1}, 7th entry of node with shift-6 is
 a sibling node that point back to 6th entry of the same node. Both 6th
 and 7th entries represent indices of order 6 (1<<6), and they formed
 together the index combinations of order 7.
