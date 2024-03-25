@@ -61,11 +61,29 @@ a sibling node that point back to 6th entry of the same node. Both 6th
 and 7th entries represent indices of order 6 (1<<6), and they formed
 together the index combinations of order 7.
  
+## 4. Marks
+In XArray data structure, each entry (see figures above) in the array has three bits associated with it called marks [3].
 
-## 4. Conclusion
+### 4.1 Marks' use case in Linux kernel
+In Linux kernel's function mark_buffer_dirty, __folio_mark_dirty is called to mark folio's
+corresponding indices in mapping dirty.
+```
+2666		xa_lock_irqsave(&mapping->i_pages, flags);
+2667		if (folio->mapping) {	/* Race with truncate? */
+2668			WARN_ON_ONCE(warn && !folio_test_uptodate(folio));
+2669			folio_account_dirtied(folio, mapping);
+2670			__xa_set_mark(&mapping->i_pages, folio_index(folio),
+2671					PAGECACHE_TAG_DIRTY);
+2672		}
+2673		xa_unlock_irqrestore(&mapping->i_pages, flags);
+```
+
+## 5. Conclusion
 
 
 ## 5. references
 [1] https://www.kernel.org/doc/html/latest/core-api/xarray.html
 
 [2] https://lwn.net/Articles/688130/
+
+[3] https://docs.kernel.org/core-api/xarray.html
