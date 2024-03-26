@@ -78,6 +78,11 @@ corresponding indices in mapping dirty.
 2673		xa_unlock_irqrestore(&mapping->i_pages, flags);
 ```
 
+### 4.2 Set mark example
+
+![set mark1\label{set_mark1}](set_mark1.svg) {#fig:set_mark1}
+
+
 ## 5. Conclusion
 
 
