@@ -50,7 +50,8 @@ In figure above, we store entry 1 with order 12 and index 10 to Xarray, so:
 * Value 1 is stored to slot 1 of above node.
 
 ### 3.2 Index=4004 and order=7
-![multiorder 1\label{multiorder1}](multi-order-2.svg) {#fig:multiorder1}
+![multiorder 1\label{multiorder1}](multi-order-2.svg) 
+<p style="text-align: center;">{#fig:multiorder1}</p>
 
 As mentioned in [2], "For orders greater than 1, there can 
 simply be multiple sibling entries that all point back to 
@@ -80,7 +81,9 @@ corresponding indices in mapping dirty.
 
 ### 4.2 Set mark example
 
-![set mark1\label{set_mark1}](set_mark1.svg) {#fig:set_mark1}
+![set mark1\label{set_mark1}](set_mark1.svg)
+<p style="text-align: center;">{#fig:set_mark1}</p>
+
 
 
 ## 5. Conclusion
