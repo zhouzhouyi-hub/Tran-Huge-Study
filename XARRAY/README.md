@@ -88,7 +88,12 @@ corresponding indices in mapping dirty.
 
 <p style="text-align: center;">{#fig:set_mark1}</p>
 
+In figure @fig:{set_mark1}, we want to set mark: XA_MARK_0 in index 64 of XArray. Following is the mark process.
 
+* The head of the array is a node with shift == 6, so to keep traversing, offset is computed as 64>>6&7==1.
+* Entry 1 of head is a node with shift == 3, and the next offset is computed as 64>>3&7 == 0.
+* Entry 0 of previous node is a node with shift = 0, and the offset is computed as 64>>0&7 == 0, so mark0[offset] is set.
+* Traverse back the tree from above node to head, and set mark0[offset] of each node.
 
 ## 5. Conclusion
 
