@@ -85,10 +85,8 @@ corresponding indices in mapping dirty.
 ### 4.2 Set mark example
 
 ![set mark1\label{set_mark1}](set_mark1.svg)
-<div>
-    {#fig:set_mark1}
-</div>
 
+<p style="text-align: center;">{#fig:set_mark1}</p>
 
 
 
