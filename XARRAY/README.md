@@ -95,12 +95,19 @@ In figure @fig:{set_mark1}, we want to set mark: XA_MARK_0 in index 64 of XArray
 * Entry 0 of previous node is a node with shift = 0, and the offset is computed as 64>>0&7 == 0, so mark0[offset] is set.
 * Traverse back the tree from above node to head, and set mark0[offset] of each node.
 
-## 5. Conclusion
+## 5. xas_split
+
+xas_split is added in [4] to support spliting a multi-index entry (eg if a file is truncated in
+the middle of a huge page entry) [4].
+
+## 6. Conclusion
 
 
-## 5. references
+## 7. references
 [1] https://www.kernel.org/doc/html/latest/core-api/xarray.html
 
 [2] https://lwn.net/Articles/688130/
 
 [3] https://docs.kernel.org/core-api/xarray.html
+
+[4] XArray: add xas_split https://patchwork.kernel.org/project/linux-mm/patch/20201016024156.AmjHOFeMg%25akpm@linux-foundation.org/
