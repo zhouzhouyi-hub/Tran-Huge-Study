@@ -100,6 +100,15 @@ In figure @fig:{set_mark1}, we want to set mark: XA_MARK_0 in index 64 of XArray
 xas_split is added in [4] to support spliting a multi-index entry (eg if a file is truncated in
 the middle of a huge page entry) [4].
 
+### 5.1 xas_split example 1
+
+![xas split example 1\label{xassplit1}](Split-1.svg)
+
+<p style="text-align: center;">{#fig:xassplit1}</p>
+
+In figure @fig:{xassplit1}, the new_order for split is 1, which means each entry in the array has one sibling (1<<1 == 2). the "order" to be splited is 2, which means there are 4 (1<<2) to be splitted.
+
+
 ## 6. Conclusion
 
 
