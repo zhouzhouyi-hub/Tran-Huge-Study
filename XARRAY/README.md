@@ -108,6 +108,23 @@ the middle of a huge page entry) [4].
 
 In figure @fig:{xassplit1}, the new_order for split is 1, which means each entry in the array has one sibling (1<<1 == 2). the "order" to be splited is 2, which means there are 4 (1<<2) to be splitted.
 
+### 5.2 xas_split example 2
+
+The second example of xas_split is from Linux kernel, when we invoke
+```
+echo 1 > /sys/kernel/debug/split_huge_pages
+```
+Linux kernel call split_huge_pages_all => split_folio => split_folio_to_list => split_huge_page_to_list => xas_split to split
+a multi-index entry in memory map
+```
+2762				xas_split(&xas, folio, folio_order(folio));
+```
+
+![xas split example 2\label{xassplit2}](Split-2.svg)
+
+<p style="text-align: center;">{#fig:xassplit2}</p>
+
+Note that in Linux kernel, there 64 entries in a XArray node.
 
 ## 6. Conclusion
 
