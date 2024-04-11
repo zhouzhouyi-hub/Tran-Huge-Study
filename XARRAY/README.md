@@ -138,6 +138,12 @@ splited pages one by one to above figure.
 2556                                         head + i, 0);
 ```
 
+After __xa_store, the XArray will looks like following figure:
+
+![xas split 3\label{xassplit3}](Split-3.svg)
+
+<p style="text-align: center;">{#fig:xassplit3}</p>
+
 ## 6. Conclusion
 
 
