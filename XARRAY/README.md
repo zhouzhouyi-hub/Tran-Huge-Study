@@ -114,7 +114,7 @@ The second example of xas_split is from Linux kernel, when we invoke
 ```
 echo 1 > /sys/kernel/debug/split_huge_pages
 ```
-Linux kernel call split_huge_pages_all => split_folio => split_folio_to_list => split_huge_page_to_list => xas_split to split
+Linux kernel calls split_huge_pages_all => split_folio => split_folio_to_list => split_huge_page_to_list => xas_split to split
 a multi-index entry in memory map
 ```
 2762				xas_split(&xas, folio, folio_order(folio));
@@ -124,7 +124,19 @@ a multi-index entry in memory map
 
 <p style="text-align: center;">{#fig:xassplit2}</p>
 
-Note that in Linux kernel, there 64 entries in a XArray node.
+Note that in Linux kernel, there are 64 entries in a XArray node.
+In figure above, xas_split traverse the XArray from head (with shift 12) all
+the way down to the node with shift 6, then replace the content of entry 2 (offset = 2)
+which is folio with a new node of shift 0.
+
+Then split_huge_pages_all => split_folio => split_folio_to_list => split_huge_page_to_list => __split_huge_page stores the
+splited pages one by one to above figure.
+```
+2541         for (i = nr - 1; i >= 1; i--) {
+...
+2555                         __xa_store(&head->mapping->i_pages, head[i].index,
+2556                                         head + i, 0);
+```
 
 ## 6. Conclusion
 
