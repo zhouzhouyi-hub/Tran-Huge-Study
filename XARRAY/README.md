@@ -129,6 +129,19 @@ In figure above, xas_split traverse the XArray from head (with shift 12) all
 the way down to the node with shift 6, then replace the content of entry 2 (offset = 2)
 which is folio with a new node of shift 0.
 
+And the mark of old entry will be set on all entries of the new child node, as green square and green arrow in above
+figure indicates.
+```
+1054 void xas_split(struct xa_state *xas, void *entry, unsigned int order)
+...
+1066         marks = node_get_marks(node, xas->xa_offset);
+...
+1069         do {
+1070                 if (xas->xa_shift < node->shift) {
+...
+1080                         node_set_marks(node, offset, child, marks);
+```
+
 Then split_huge_pages_all => split_folio => split_folio_to_list => split_huge_page_to_list => __split_huge_page stores the
 splited pages one by one to above figure.
 ```
@@ -137,6 +150,9 @@ splited pages one by one to above figure.
 2555                         __xa_store(&head->mapping->i_pages, head[i].index,
 2556                                         head + i, 0);
 ```
+
+
+
 
 After __xa_store, the XArray will looks like following figure:
 
