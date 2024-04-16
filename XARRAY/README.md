@@ -160,10 +160,24 @@ After __xa_store, the XArray will looks like following figure:
 
 <p style="text-align: center;">{#fig:xassplit3}</p>
 
-## 6. Conclusion
+## 6. xas_for_each
+The xas_for_each() is a macro used to iterate over the present entries in the XArray [3]. It is defined in include/linux/xarray.h
+```
+1770 #define xas_for_each(xas, entry, max) \
+1771         for (entry = xas_find(xas, max); entry; \
+1772              entry = xas_next_entry(xas, max))
+```
+xas_find is used to find the next present entry in the XArray, If the xas has not yet been walked to an entry, return the entry which has an index >= xas.xa_index.  If it has been walked, the entry currently being pointed at has been processed, and so we move to the next entry [5].
+
+xas_next_entry is used to advance iterator to next present entry. It is an inline function to optimise xarray traversal for
+speed.  It is equivalent to calling xas_find(), and will call xas_find() for all the hard cases [6].
+
+### 6.1 xas_for_each example
+
+## 7. Conclusion
 
 
-## 7. references
+## 8. references
 [1] https://www.kernel.org/doc/html/latest/core-api/xarray.html
 
 [2] https://lwn.net/Articles/688130/
@@ -171,3 +185,7 @@ After __xa_store, the XArray will looks like following figure:
 [3] https://docs.kernel.org/core-api/xarray.html
 
 [4] XArray: add xas_split https://patchwork.kernel.org/project/linux-mm/patch/20201016024156.AmjHOFeMg%25akpm@linux-foundation.org/
+
+[5] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/lib/xarray.c
+
+[6] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/xarray.h
