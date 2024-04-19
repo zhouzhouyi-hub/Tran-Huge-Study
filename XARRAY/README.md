@@ -174,6 +174,20 @@ speed.  It is equivalent to calling xas_find(), and will call xas_find() for all
 
 ### 6.1 xas_for_each example
 
+Following example is from Linux kernel, when we delete a file from filesystem (XFS), page_cache_delete_batch
+will be called to remove the folios (combination of pages) from page mapping:
+```
+288		xas_for_each(&xas, folio, ULONG_MAX) {
+...
+314                 xas_store(&xas, NULL);
+315                 total_pages += folio_nr_pages(folio);
+316         }
+```
+![xas_for_each1\label{xasforeach1}](xas_for_each1.svg)
+
+<p style="text-align: center;">{#fig:xasforeach1}</p>
+
+
 ## 7. Conclusion
 
 
