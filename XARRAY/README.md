@@ -193,6 +193,16 @@ In this example, xas_for_each iterate over the XArray (mapping->pages) for folio
 
 In figure above, because the folios in XArray are of order 2, echo folio occupies 4 slots in the leaf node.
 
+During xas_for_each's iterating, when it encounters a sibling entry or zero entry, it will forwards to next entry
+until a non zero and non sibling entry is found.
+
+```
+1237 void *xas_find(struct xa_state *xas, unsigned long max)
+...
+1273                 if (entry && !xa_is_sibling(entry))
+1274                         return entry;
+```
+
 ## 7. Conclusion
 
 
