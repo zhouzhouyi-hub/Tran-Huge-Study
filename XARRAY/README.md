@@ -203,6 +203,10 @@ until a non zero and non sibling entry is found.
 1274                         return entry;
 ```
 
+### 6.2 xa_for_each
+The macro xa_for_each is commonly used in the Linux kernel and is very similar to xas_for_each.
+One could can iterate over the present entries in the XArray by calling xa_for_each() [3].
+
 ## 7. Conclusion
 
 
